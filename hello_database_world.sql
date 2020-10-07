@@ -1,0 +1,11 @@
+CREATE DATABASE hello_database_world;
+
+USE hello_database_world;
+
+CREATE TABLE helloWorld(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  body VARCHAR(255) NOT NULL,
+  author VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
