@@ -5,34 +5,17 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> This framework is not doing well anymore-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello Cruddy World</title>
 </head>
 
 <body>
-  <!-- I still don't know if this should just be an index.html file with php sprinkled about -->
-
-  <!-- <button type="submit">Hiiiiiiiiiiiiiiiiiiiiiiii</button>
-  <a class="waves-effect waves-light btn" type="submit">Submit</a>
-  <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
-  <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
-
-  <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a> -->
-  <!-- if (isset($_POST["show_posts"])) {
-    echo "button clicked";
-    include "api/post/read.php";
-    <form action="api/post/read.php" method="post">
-    <button class="btn waves-effect waves-light" type="submit" name="show_posts">Show Posts
-      <i class="material-icons right">send</i>
-    </button>
-  </form> -->
 
   <?php include_once "api/post/read.php"; ?>
   <?php $show_posts = false; ?>
 
-  <?php if (isset($_POST["show_posts"])) : ?>
+  <!-- <?php if (isset($_POST["show_posts"])) : ?>
     <?php $show_posts = true; ?>
     <table class="highlight">
       <thead>
@@ -50,7 +33,27 @@
         </tr>
       <?php endfor; ?>
     </table>
+  <?php endif; ?> -->
+
+
+  <?php if (isset($_POST["show_posts"])) : ?>
+    <?php $show_posts = true; ?>
+    <?php for ($i = 0; $i < sizeof($data_array["data"]); $i++) : ?>
+      <div class="column is-four-fifths">
+        <div class="box">
+          <h1 class="title"><?php echo $data_array["data"][$i]["title"]; ?> </h1>
+          <p><?php echo $data_array["data"][$i]["body"] ?></p>
+          <br>
+          <p class="is-size-5-mobile has-text-dark"><?php echo $data_array["data"][$i]["author"] ?></p>
+          <br>
+          <button class="button has-background-info has-text-white">Update</button>
+          <button class="button has-background-danger has-text-white">Delete</button>
+        </div>
+      </div>
+      <br>
+    <?php endfor; ?>
   <?php endif; ?>
+
 
 
   <!-- hide and show buttons. -->
@@ -79,28 +82,24 @@
 
 
   <?php require_once "api/post/create.php"; ?>
-  <script>
-    console.log("made the include");
-  </script>
 
-  <div class="row">
+  <div class="column is-three-quarters">
     <form action="api/post/create.php" method="POST">
       <div class="field">
-        <div class="control">
-          <label for="form_title">Title:</label>
-          <input id="form_title" class="input is-primary" type="text" name="form_title" placeholder="Title of Post" required>
-        </div>
+        <label class="label">Title:</label>
+        <input id="form_title" class="input is-primary" type="text" name="form_title" placeholder="Title of Post" required>
       </div>
       <div class="field">
-        <div class="control">
-          <label for="form_body">Body:</label>
-          <textarea id="form_body" class="textarea" placeholder="e.g. Today I..." name="form_body" required></textarea>
-        </div>
+        <label class="label">Body:</label>
+        <textarea id="form_body" class="textarea" placeholder="e.g. Today I..." name="form_body" required></textarea>
       </div>
       <div class="field">
-        <div class="control">
-          <label for="form_author">Author:</label>
+        <label class="label">Author:</label>
+        <div class="control has-icons-left">
           <input id="form_author" class="input is-primary" type="text" name="form_author" placeholder="Author of Post" required>
+          <span class="icon is-small is-left">
+            <i class="material-icons prefix">account_circle</i>
+          </span>
         </div>
       </div>
       <button class="button is-primary" type="submit" name="submit_create_request">
@@ -110,38 +109,11 @@
         </span>
       </button>
     </form>
+  </div>
 
 
-    <!-- <div class="row">
-      <div class="input-field col s6">
-        <i class="material-icons prefix">title</i>
-        <input id="icon_prefix" type="text" class="validate" name="form_title" required>
-        <label for="icon_prefix">Title</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <i class="material-icons prefix">chat</i>
-        <textarea id="textarea1" class="materialize-textarea" name="form_body" required></textarea>
-        <label for="textarea1">Body</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <i class="material-icons prefix">person</i>
-        <input id="icon_prefix" type="tel" class="validate" name="form_author" required>
-        <label for="icon_prefix">Author Name</label>
-      </div>
-    </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-    </button>
-  </div> -->
-
-
-
-    <!-- Scripts -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-    <!-- <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script> -->
+  <!-- Scripts -->
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script> -->
 </body>
 
 </html>
