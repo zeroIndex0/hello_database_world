@@ -36,6 +36,10 @@
   <?php endif; ?> -->
 
 
+  <!-- Delete file used on button push with data-update-id nad data-delete-id -->
+  <?php require_once "api/post/delete.php"; ?>
+  <?php require_once "api/post/update.php"; ?>
+
   <?php if (isset($_POST["show_posts"])) : ?>
     <?php $show_posts = true; ?>
     <?php for ($i = 0; $i < sizeof($data_array["data"]); $i++) : ?>
@@ -46,8 +50,17 @@
           <br>
           <p class="is-size-5-mobile has-text-dark"><?php echo $data_array["data"][$i]["author"] ?></p>
           <br>
-          <button class="button has-background-info has-text-white">Update</button>
-          <button class="button has-background-danger has-text-white">Delete</button>
+          <div class="field is-grouped">
+            <form method="POST" action="api/post/update.php">
+              <!-- This needs to be a read_one where the single read will be stored into a variable to be used for update -->
+              <!-- The value can be accessed from the name via $_POST which is how we get the id to update or delete -->
+              <button name="update_button_request" value="<?php echo $data_array["data"][$i]["id"]; ?>" class="button has-background-info has-text-white" type="submit">Update</button>
+            </form>
+            <form method="POST" action="api/post/delete.php">
+              <!-- The value can be accessed from the name via $_POST which is how we get the id to update or delete -->
+              <button name="delete_button_request" value="<?php echo $data_array["data"][$i]["id"]; ?>" class="button has-background-danger has-text-white" type="submit">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
       <br>
@@ -56,8 +69,11 @@
 
 
 
+
+
+
   <!-- hide and show buttons. -->
-  <form method="post">
+  <form method="POST">
     <button id="show_posts_button" class="button is-primary" type="submit" name="show_posts">Show Posts
       <i class="material-icons right">more_horiz</i>
     </button>
