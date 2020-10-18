@@ -39,7 +39,7 @@ class Post {
 
     //clean input
     $this->title = htmlspecialchars(strip_tags($this->title));
-    $this->body = htmlspecialchars(strip_tags($this->body));
+    $this->body = htmlspecialchars($this->body);
     $this->author = htmlspecialchars(strip_tags($this->author));
 
     //bind input
@@ -110,7 +110,8 @@ class Post {
     //clean input
     $this->id = htmlspecialchars(strip_tags($this->id));
     $this->title = htmlspecialchars(strip_tags($this->title));
-    $this->body = htmlspecialchars(strip_tags($this->body));
+    $this->body = htmlspecialchars($this->body);
+    $this->author = htmlspecialchars(strip_tags($this->author));
     //bind params
     $stmt->bindParam("id", $this->id);
     $stmt->bindParam("title", $this->title);
