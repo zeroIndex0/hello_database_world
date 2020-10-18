@@ -12,13 +12,15 @@
 
 <body>
 
+  <!-- read.php grabs all the data.  The variable data_array is added when the file is included -->
   <?php include_once "api/post/read.php"; ?>
   <?php $show_posts = false; ?>
 
-  <!-- Delete file used on button push with data-update-id and data-delete-id -->
+  <!-- delete.php and read_one.php used on button push for delete and edit -->
   <?php require_once "api/post/delete.php"; ?>
   <?php require_once "api/post/read_one.php"; ?>
 
+  <!-- Shows the data for the posts and gives buttons for deleting or editing each post -->
   <?php if (isset($_POST["show_posts"])) : ?>
     <?php $show_posts = true; ?>
     <?php for ($i = 0; $i < sizeof($data_array["data"]); $i++) : ?>
@@ -31,7 +33,6 @@
           <br>
           <div class="field is-grouped">
             <form method="POST" action="api/post/read_one.php">
-              <!-- This needs to be a read_one where the single read will be stored into a variable to be used for update -->
               <!-- The value can be accessed from the name via $_POST which is how we get the id to update or delete -->
               <button name="edit_button_request" value="<?php echo $data_array["data"][$i]["id"]; ?>" class="button has-background-info has-text-white" type="submit">Edit</button>
             </form>
@@ -47,11 +48,7 @@
   <?php endif; ?>
 
 
-
-
-
-
-  <!-- hide and show buttons. -->
+  <!-- hide and show posts buttons. -->
   <form method="POST">
     <button id="show_posts_button" class="button is-primary" type="submit" name="show_posts">Show Posts
       <i class="material-icons right">more_horiz</i>
@@ -63,35 +60,24 @@
   <!-- script to hide and show the hide and show buttons -->
   <?php if ($show_posts) : ?>
     <script>
-      console.log("SHOW IS TRUE");
       document.getElementById("show_posts_button").style.display = "none";
       document.getElementById("hide_posts_button").style.display = "block";
     </script>
   <?php else : ?>
     <script>
-      console.log("SHOW IS FALSE");
       document.getElementById("show_posts_button").style.display = "block";
       document.getElementById("hide_posts_button").style.display = "none";
     </script>
   <?php endif; ?>
 
 
+  <!-- create.php and update.php called on button push depending on which form is loaded-->
   <?php require_once "api/post/create.php"; ?>
   <?php require_once "api/post/update.php"; ?>
-  <?php
-  if (!isset($_SESSION["read_one_entry_flag"])) {
-    $_SESSION["read_one_entry_flag"] = false;
-  } else {
-    echo "<h1>Read One Entry Flag: " . $_SESSION["read_one_entry_flag"] . "</h1>";
-    if (isset($_SESSION["read_one_entry"])) {
-      echo "Author in index: " . $_SESSION["read_one_entry"]["author"];
-    } else {
-      echo "No Post Selected";
-    }
-  }
-  ?>
 
+  <!-- Displays the form to fill out for creating or updating, depending on if you want to create a post or update a post -->
   <?php if ($_SESSION["read_one_entry_flag"] === false) : ?>
+    <!-- if read one entry flag is false, then display blank fields -->
     <div class="column is-three-quarters">
       <form action="api/post/create.php" method="POST">
         <div class="field">
@@ -118,6 +104,7 @@
           </span>
         </button>
       <?php else : ?>
+        <!-- if the read one entry flag is true, auto fill the fields with the data from the posts -->
         <div class="column is-three-quarters">
           <form action="api/post/update.php" method="POST">
             <div class="field">
@@ -137,7 +124,7 @@
                 </span>
               </div>
             </div>
-            <button class="button is-info" type="submit" value="<?php echo $_SESSION["read_one_entry"]["id"]?>" name="submit_update_request">
+            <button class="button is-info" type="submit" value="<?php echo $_SESSION["read_one_entry"]["id"] ?>" name="submit_update_request">
               <span>Update</span>
               <span class="icon">
                 <i class="material-icons prefix">send</i>
@@ -153,9 +140,6 @@
         $_SESSION["read_one_entry_flag"] = false;
         ?>
 
-
-        <!-- Scripts -->
-        <!-- <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script> -->
 </body>
 
 </html>
