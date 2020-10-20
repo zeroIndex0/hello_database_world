@@ -1,5 +1,7 @@
 <?php
 
+if (!isset($_SESSION)) session_start();
+
 //It seems that since this include comes from a file included in the main directory, the two ../../ cause an error
 // almost like the include is still pulling from the main directory.  Interesting and I can forsee that being a pain
 //This could help with the issue: https://stackoverflow.com/questions/46329782/warning-include-once-lib-database-php-failed-to-open-stream-no-such-file 
@@ -25,9 +27,10 @@ if (isset($_POST["submit_create_request"])) {
   $post->author = isset($_POST["form_author"]) ? $_POST["form_author"] : '';
 
   if ($post->create()) {
+    $_SESSION["message"] = "Post has been created";
+    $_SESSION["message_type"] = "success";
     header("Location: http://localhost/hello_database_world");
   } else {
     echo "<h1>POST NOT CREATED</h1>";
   }
-  
 }
