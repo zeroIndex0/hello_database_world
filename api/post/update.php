@@ -1,5 +1,7 @@
 <?php
 
+if (!isset($_SESSION)) session_start();
+
 if (isset($_POST["submit_update_request"])) {
   include_once "../../config/Database.php";
   include_once "../../models/Post.php";
@@ -23,6 +25,8 @@ if (isset($_POST["submit_update_request"])) {
 
   //update the post
   if ($post->update()) {
+    $_SESSION["message"] = "Post has been updated";
+    $_SESSION["message_type"] = "primary";
     header("Location: http://localhost/hello_database_world");
   } else {
     echo "<h1>POST NOT UPDATED</h1>";
