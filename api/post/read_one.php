@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+if (!isset($_SESSION)) session_start();
+
 
 if (!isset($_SESSION["read_one_entry_flag"])) {
   $_SESSION["read_one_entry_flag"] = false;
