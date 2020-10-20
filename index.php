@@ -12,9 +12,31 @@
 
 <body>
 
+  <?php session_start() ?>
   <!-- read.php grabs all the data.  The variable data_array is added when the file is included -->
   <?php include_once "api/post/read.php"; ?>
   <?php $show_posts = false; ?>
+
+  <!-- Notification message on Update, Delete or Create -->
+  <?php if (isset($_SESSION["message"])) : ?>
+    <div id="post_notification" class="column is-three-quarters">
+      <article class="message is-<?php echo  $_SESSION["message_type"] ?>">
+        <div class="message-header">
+          <?php echo $_SESSION["message"]; ?>
+          <?php unset($_SESSION["message"]); ?>
+          <?php unset($_SESSION["message_type"]); ?>
+          <button class="delete" aria-label="delete" onclick="removeNotification()"></button>
+        </div>
+      </article>
+    </div>
+    <script>
+      function removeNotification() {
+        document.getElementById("post_notification").style.display = "none";
+      }
+    </script>
+    <?php unset($_SESSION["message"]); ?>
+  <?php endif; ?>
+
 
   <!-- delete.php and read_one.php used on button push for delete and edit -->
   <?php require_once "api/post/delete.php"; ?>
@@ -26,8 +48,9 @@
     <?php for ($i = 0; $i < sizeof($data_array["data"]); $i++) : ?>
       <div class="column is-four-fifths">
         <div class="box">
+          <!-- <p class="is-size-5-mobile has-text-dark"><?php echo $data_array["data"][$i]["created_at"] ?></p> -->
           <h1 class="title"><?php echo $data_array["data"][$i]["title"]; ?> </h1>
-          <p><?php echo $data_array["data"][$i]["body"] ?></p>
+          <p style="white-space: pre-wrap;"><?php echo $data_array["data"][$i]["body"] ?></p>
           <br>
           <p class="is-size-5-mobile has-text-dark"><?php echo $data_array["data"][$i]["author"] ?></p>
           <br>
@@ -49,14 +72,16 @@
 
 
   <!-- hide and show posts buttons. -->
-  <form method="POST">
-    <button id="show_posts_button" class="button is-primary" type="submit" name="show_posts">Show Posts
-      <i class="material-icons right">more_horiz</i>
-    </button>
-    <button id="hide_posts_button" class="button is-primary" type="submit" name="hide_posts">Hide Posts
-      <i class="material-icons right">undo</i>
-    </button>
-  </form>
+  <div class="column is-three-quarters">
+    <form method="POST">
+      <button id="show_posts_button" class="button is-primary" type="submit" name="show_posts">Show Posts
+        <i class="material-icons right">more_horiz</i>
+      </button>
+      <button id="hide_posts_button" class="button is-primary" type="submit" name="hide_posts">Hide Posts
+        <i class="material-icons right">undo</i>
+      </button>
+    </form>
+  </div>
   <!-- script to hide and show the hide and show buttons -->
   <?php if ($show_posts) : ?>
     <script>
