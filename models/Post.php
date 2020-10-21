@@ -68,10 +68,13 @@ class Post {
     FROM " . $this->table_name;
 
     //prepare
-    $stmt = $this->connection->prepare($query);
-    //execute
-    $stmt->execute();
-
+    try {
+      $stmt = $this->connection->prepare($query);
+      //execute
+      $stmt->execute();
+    } catch (PDOException $error) {
+      echo "Connection Error: " . $error->getMessage();
+    }
     return $stmt;
   }
 
@@ -92,8 +95,11 @@ class Post {
     //bind params
     $stmt->bindParam("id", $this->id);
     //execute
-    $stmt->execute();
-
+    try {
+      $stmt->execute();
+    } catch (PDOException $error) {
+      echo "Connection Error: " . $error->getMessage();
+    }
     return $stmt;
   }
 
