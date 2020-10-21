@@ -7,7 +7,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello Cruddy World</title>
+  <meta name="description" content="Why, hello there.  I hope your day is going okay.">
+  <title>The CRUD</title>
 </head>
 
 <body>
@@ -48,7 +49,7 @@
     <?php for ($i = 0; $i < sizeof($data_array["data"]); $i++) : ?>
       <div class="column is-four-fifths">
         <div class="box">
-          <!-- <p class="is-size-5-mobile has-text-dark"><?php echo $data_array["data"][$i]["created_at"] ?></p> -->
+          <p class="has-text-dark" style="font-size: 10px">Created: <?php echo $data_array["data"][$i]["created_at"] ?></p>
           <h1 class="title"><?php echo $data_array["data"][$i]["title"]; ?> </h1>
           <p style="white-space: pre-wrap;"><?php echo $data_array["data"][$i]["body"] ?></p>
           <br>
