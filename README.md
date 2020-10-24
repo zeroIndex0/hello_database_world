@@ -1,11 +1,18 @@
 
 ## Setup
 
-I am using XAMPP for my development server and Postman for my api testing.
+I am using XAMPP for my development server.
+I am using git-bash for my terminal.
 
-hello_database_world.sql is the empty database that is used for this program.
-I copy the contents of the file and paste it into my shell (in my case it's git-bash) and hit enter.  That builds the empty database needed for
-this program.
+hello_database_world.sql is the needed database.  
+Copy the contents of the file and paste it into the shell (in my case it's git-bash) and hit enter.  That builds the empty database needed for this program.  
+
+Then put this folder under your htdocs folder and navigate to the url
+```
+http://localhost/hello_database_world
+```
+
+If there are issues with ports, or logging into your mysql with git-bash, I have some notes below explaining the issues that I ran into.  Hopefully, they will help you out or get you on the right track to finding the solution.  
 
 
 #### ----------------------    Notes and Issues    ---------------------------------------
@@ -23,12 +30,11 @@ $connection = new PDO("mysql:host=hostname;port=3307;dbname=database", username,
 Which is why I added the port variable to my Database.php.
 
 I realized the ports were going to be a problem because after installing xampp I ran into an issue where it was complaining about ports being blocked.  The problem was that I already had mysql installed and running on the default port. But since xampp also installed mysql, it was trying to run on the same port as the other version of mysql.  
-Simply chaning the PDO port wasn't the entire solution. I also had to change the port numbers in the xampp ini files for my.ini and php.ini.
+Simply changing the PDO default port wasn't the entire solution. I also had to change the port numbers in the xampp ini files for my.ini and php.ini.
 
 Here is a stackoverflow [solution](https://stackoverflow.com/questions/18177148/xampp-mysql-does-not-start) to the port problem that explains what files you need to change and their locations.  
 
 If you haven't previously installed mysql before installing xampp then all of the port comments can be ignored aside from needing to handle them in the Database.php file.  
-  
   
   
 The root of the xampp project is under:  
