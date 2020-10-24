@@ -2,7 +2,7 @@
 class Post {
   //Private values
   //we only have one table name, but lets make it a variable anyway.  The ability to expand and be robust, right
-  private $table_name = "helloworld";
+  private $table_name = "helloWorld";
   private $connection;
 
 
