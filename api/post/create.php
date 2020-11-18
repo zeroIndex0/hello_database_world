@@ -22,7 +22,7 @@ if (isset($_POST["submit_create_request"])) {
   $post = new Post($db);
 
   //get the input from the user.
-  $post->title = isset($_POST["form_title"]) ? $_POST["form_title"] : '';
+  $post->title = isset($_POST["form_title"]) ? $_POST["form_title"] : 'Spam Detected';
   $post->body = isset($_POST["form_body"]) ? $_POST["form_body"] : '';
   $post->author = isset($_POST["form_author"]) ? $_POST["form_author"] : '';
 
