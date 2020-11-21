@@ -21,7 +21,7 @@ if (isset($_POST["delete_button_request"])) {
 
     $_SESSION["message"] = "Post has been deleted";
     $_SESSION["message_type"] = "danger";
-    header("Location: http://localhost/hello_database_world");
+    header("Location: ../../index.php");
   } else {
     echo "<h1>POST NOT DELETED</h1>";
   }
