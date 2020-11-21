@@ -29,7 +29,7 @@ if (isset($_POST["submit_create_request"])) {
   if ($post->create()) {
     $_SESSION["message"] = "Post has been created";
     $_SESSION["message_type"] = "success";
-    header("Location: http://localhost/hello_database_world");
+    header("Location: ../../index.php");
   } else {
     echo "<h1>POST NOT CREATED</h1>";
   }
