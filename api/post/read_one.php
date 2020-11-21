@@ -46,7 +46,7 @@ if (isset($_POST["edit_button_request"])) {
 
     $_SESSION["read_one_entry"] = $read_one_entry;
 
-    header("Location: http://localhost/hello_database_world");
+    header("Location: ../../index.php");
   } else {
     echo "<h1>COULD NOT FIND POST</h1>";
     $_SESSION["read_one_entry_flag"] = false;
