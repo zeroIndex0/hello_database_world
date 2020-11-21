@@ -27,7 +27,7 @@ if (isset($_POST["submit_update_request"])) {
   if ($post->update()) {
     $_SESSION["message"] = "Post has been updated";
     $_SESSION["message_type"] = "primary";
-    header("Location: http://localhost/hello_database_world");
+    header("Location: ../../index.php");
   } else {
     echo "<h1>POST NOT UPDATED</h1>";
   }
