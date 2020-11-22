@@ -22,9 +22,15 @@ if (isset($_POST["submit_create_request"])) {
   $post = new Post($db);
 
   //get the input from the user.
-  $post->title = isset($_POST["form_title"]) ? $_POST["form_title"] : 'Spam Detected';
+  $post->title = isset($_POST["form_title"]) ? $_POST["form_title"] : '';
   $post->body = isset($_POST["form_body"]) ? $_POST["form_body"] : '';
   $post->author = isset($_POST["form_author"]) ? $_POST["form_author"] : '';
+
+  if($post->title === "" || $post->body === "" || $post->author === "") {
+    $post->title = "Spam Detected";
+    $post->body = "[edited for spam]";
+    $post->name = "Spammer McSpamSon";
+  }
 
   if ($post->create()) {
     $_SESSION["message"] = "Post has been created";
