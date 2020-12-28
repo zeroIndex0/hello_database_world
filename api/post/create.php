@@ -29,7 +29,12 @@ if (isset($_POST["submit_create_request"])) {
   if($post->title === "" || $post->body === "" || $post->author === "") {
     $post->title = "Spam Detected";
     $post->body = "[edited for spam]";
-    $post->name = "Spammer McSpamSon";
+    $post->author = "Spammer McSpamSon";
+  }
+  if($post->author === "Henryunpam") {
+    $post->title = "Spamer Alert";
+    $post->body = "I'm a little spam bot short and stout.";
+    $post->author = "Look maw, I'm a real robot";
   }
 
   if ($post->create()) {
